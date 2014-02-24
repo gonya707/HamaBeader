@@ -1,0 +1,10 @@
+clear;clc;
+doutzen=imread('doutzen.bmp');
+figure;
+image(doutzen);
+[Myimagenodither, Myimagenodithermap]=rgb2ind(doutzen, 16, 'nodither');
+imshow(Myimagenodither, Myimagenodithermap);
+figure;
+image(doutzen);
+[Myimagedither, Myimagedithermap] = rgb2ind(doutzen, 16, 'dither');
+imshow(Myimagedither, Myimagedithermap);

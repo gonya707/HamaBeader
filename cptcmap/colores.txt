@@ -1,0 +1,57 @@
+White             
+Cream             
+Yellow            
+Orange            
+Red               
+Pink              
+Purple            
+Blue              
+Light Blue        
+Green             
+Light green       
+Brown             
+Translucent red   
+translucent yellow
+Translucent blue  
+translucent green 
+grey              
+black             
+clear             
+reddish brown     
+light brown       
+dark red          
+translucent black 
+translucent purple
+translucent brown 
+flesh             
+beige             
+dark green        
+claret            
+burgundy          
+turquoise         
+neon fuchsia      
+fluorescent cerise
+neon yellow       
+neon red          
+neon blue         
+neon green        
+neon orange       
+fluorescent yellow
+fluorescent orange
+fluorescen blue   
+fluorescen green  
+pastel yellow     
+pastel red        
+pastel purple     
+pastel blue       
+pastel green      
+paste pink        
+azure             
+glow green        
+glow red          
+glow blue         
+teddybear brown   
+gold              
+silver            
+bronze            
+pearl             
