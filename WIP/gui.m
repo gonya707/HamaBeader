@@ -39,30 +39,30 @@ function ButtonExplore_Callback(hObject, eventdata, handles)
     [handles.filename, handles.pathname] = uigetfile({'*.png;*.tif;*.bmp;*.jpg','Images';'*.*','All files' },'Select an image');
     set(handles.EditTextURL, 'string' , [handles.pathname handles.filename]);
     
-    img = imread([handles.pathname handles.filename]);
+    if (~isempty(get(handles.EditTextURL, 'string')))
+        img = imread([handles.pathname handles.filename]);
 
-    [okImage errorMsg] = isImage(img);
-    
-    if (1 == okImage)
-    
-        map = xlsread('completeMap.xlsx');
-        map = map./255;
+        [okImage errorMsg] = isImage(img);
 
-        %figure(ImageNoDither);
+        if (1 == okImage)
+            
+            map = xlsread('completeMap.xlsx');
+            map = map./255;
 
-        [handles.dout1, handles.dout1map]=rgb2ind(img, map, 'nodither');
-        imshow(handles.dout1, handles.dout1map);
+            axes(handles.ImageNoDither);
+            [imgNoDit, mapNoDit]=rgb2ind(img, map, 'nodither');
+            imshow(imgNoDit, mapNoDit);
 
-        %figure(ImageDither);
-        [handles.dout2, handles.dout2map] = rgb2ind(img, map, 'dither');
-        imshow(handles.dout2, handles.dout2map);
+            axes(handles.ImageDither);
+            [imgDit, mapDit] = rgb2ind(img, map, 'dither');
+            imshow(imgDit, mapDit);
 
-        set(handles.ButtonDitherSave, 'Enable', 'on');
-        set(handles.ButtonNoDitherSave, 'Enable', 'on');
-        
-    else
-        error(errorMsg);
-        
+            set(handles.ButtonDitherSave, 'Enable', 'on');
+            set(handles.ButtonNoDitherSave, 'Enable', 'on');
+
+        else
+            error(errorMsg);
+        end
     end
 
 end
