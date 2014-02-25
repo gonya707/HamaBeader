@@ -1,0 +1,17 @@
+function [r errorMsg] = isImage (img)
+
+    errorMsg = 'Errors detected: ';
+    r = 1;
+    
+    [X Y Z] = size(img);
+    if (Z ~= 3)
+        r = 0;
+        errorMsg = [error];
+    end
+
+
+
+
+
+
+end

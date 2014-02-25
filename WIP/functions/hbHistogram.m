@@ -1,7 +1,7 @@
 % function r = hbHistogram(img) - Calculates the hama bead histogram for a
 % given indexed image. 
 
-function r = hbHistogram(img)
+function r = hbHistogram (img)
     names=importdata('colors.txt');
  
     l=length(names);
