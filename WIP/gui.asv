@@ -88,15 +88,19 @@ function EditTextURL_CreateFcn(hObject, eventdata, handles)
     end
 end
 
-function UIPanel_SelectionChangeFcn(hObject, eventdata, handles)
-    switch get(eventdata.NewValue,'Tag') % Get Tag of selected object.
-        case 'RadioEnabled'
-            warning('Color adjustment methods not implemented');
-
-        case 'RadioDisabled'
-            warning('Color adjustment methods not implemented');
-
-    end
+function uibuttongroup1_SelectionChangeFcn(hObject,eventdata)
+switch get(eventdata.NewValue,'Tag') % Get Tag of selected object.
+    case 'radiobutton1'
+        % Code for when radiobutton1 is selected.
+    case 'radiobutton2'
+        % Code for when radiobutton2 is selected.
+    case 'togglebutton1'
+        % Code for when togglebutton1 is selected.
+    case 'togglebutton2'
+        % Code for when togglebutton2 is selected.
+    % Continue with more cases as necessary.
+    otherwise
+        % Code for when there is no match.
 end
 
 
