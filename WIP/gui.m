@@ -100,12 +100,16 @@ function mapS = setImage(handles, img)
     if(get(handles.ColorAdjCheck, 'Value') == get(handles.ColorAdjCheck, 'Max'))
         imgDisp = imgS;
         histo = hbHistogram (imgDisp);
+        
+        [M, N] = size (imgDisp);
+        tresh = M * N * 0.02; %treshold 2 percent, this could be interesting to set with a slider
 
         newMap = [];
         [M, N] = size (histo);
+
         for i = 1 : M
             nCol = cell2mat(histo(i, 2));
-            if (nCol > 1000) %FIXME improve this, slide and let the user set the threshold?
+            if (nCol > tresh) 
                 newMap = [newMap map(i,:)'];
             end
         end
@@ -128,26 +132,38 @@ function mapS = setImage(handles, img)
         end
     end
     
-    %TODO function this
-        [M N] = size(img);
-        set(handles.TextHeight, 'string', ['Height: ' num2str(M)]);
-        set(handles.TextWidth, 'string', ['Width: ' num2str(N)]);
-
-        %Mini Beads  2.5mm
-        %Midi Beads  5mm
-        %Maxi Beads  10mm
-        %TODO mouckup: get the radiobutton state
-        hmSize = 0.25; %milimeters
-        %end of mockup
-        set(handles.TextCm, 'string', ['Size (cm): ' num2str((N * hmSize) / 10) ' x ' num2str((M * hmSize) / 10)] );
-        set(handles.TextIn, 'string', ['Size (in): ' num2str((N * hmSize) / 25.4) ' x ' num2str((M * hmSize) / 25.4)] );
-
-        currentCM = newMap';
-        set(handles.TextColors, 'string', ['Colors: ' num2str(length(currentCM))]); 
-    %end TODO
+    
+    currentCM = newMap';
+    set(handles.TextColors, 'string', ['Colors: ' num2str(length(currentCM))]);
+    
     
     axes(handles.ImageBox);
     imshow(imgS, mapS);
+end
+
+% changes the text boxes for sizes.
+function [] = sizesLabel(handles, img)
+    [M N] = size(img);
+    set(handles.TextHeight, 'string', ['Height: ' num2str(M)]);
+    set(handles.TextWidth, 'string', ['Width: ' num2str(N)]);
+
+    %Mini Beads  2.5mm
+    %Midi Beads  5mm
+    %Maxi Beads  10mm
+
+    if  (get(handles.RadioBig , 'Value') == get(handles.RadioBig, 'Max'))
+        hmSize = 10;
+    else
+        if (get(handles.RadioMedium , 'Value') == get(handles.RadioMedium, 'Max'))
+            hmSize = 5;
+        else
+            hmSize = 2.5;
+        end
+    end
+    
+    set(handles.TextCm, 'string', ['Size (cm): ' num2str((N * hmSize) / 10) ' x ' num2str((M * hmSize) / 10)] );
+    set(handles.TextIn, 'string', ['Size (in): ' num2str(0.01* round(100 *(N * hmSize) / 25.4)) ' x ' num2str(0.01* round(100 *(M * hmSize) / 25.4))] );
+
 end
 
 % 'Explore' button callback
@@ -164,6 +180,7 @@ function ButtonExplore_Callback(hObject, eventdata, handles)
         if (1 == okImage)
             map = setImage(handles, img);
             enableAll(handles);
+            sizesLabel(handles, img);
         else
 
             warndlg(errorMsg);
@@ -195,10 +212,12 @@ function SizeSlider_Callback(hObject, eventdata, handles)
 
 end
 
+
+
 % ui pannel for bead size. detect the event and run a setImage
 function BeadSize_SelectionChangeFcn(hObject, eventdata, handles)
-    img = imread(get(handles.EditTextURL, 'string'));
-    setImage(handles, img);
+    img = getimage(handles.ImageBox);
+    sizesLabel(handles, img);
 end
 
 % --- Executes on button press in ColorAdjCheck.
