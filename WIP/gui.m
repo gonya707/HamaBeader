@@ -132,7 +132,7 @@ end
 
 % changes the text boxes for sizes.
 function [] = sizesLabel(handles, img)
-    [M N] = size(img);
+    [M N a] = size(img);
     set(handles.TextHeight, 'string', ['Height: ' num2str(M)]);
     set(handles.TextWidth, 'string', ['Width: ' num2str(N)]);
 
@@ -171,7 +171,6 @@ function ButtonExplore_Callback(hObject, eventdata, handles)
             enableAll(handles);
             sizesLabel(handles, img);
         else
-
             warndlg(errorMsg);
             disableAll(handles);
         end
@@ -210,3 +209,66 @@ function DitherCheck_Callback(hObject, eventdata, handles)
     img = imread(get(handles.EditTextURL, 'string'));
     setImage(handles, img);
 end
+
+
+% --- Executes on button press in checkboxMatt.
+function checkboxMatt_Callback(hObject, eventdata, handles)
+% hObject    handle to checkboxMatt (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hint: get(hObject,'Value') returns toggle state of checkboxMatt
+
+
+% --- Executes on button press in checkboxTranslucent.
+function checkboxTranslucent_Callback(hObject, eventdata, handles)
+% hObject    handle to checkboxTranslucent (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hint: get(hObject,'Value') returns toggle state of checkboxTranslucent
+
+
+% --- Executes on button press in checkboxFluorescent.
+function checkboxFluorescent_Callback(hObject, eventdata, handles)
+% hObject    handle to checkboxFluorescent (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hint: get(hObject,'Value') returns toggle state of checkboxFluorescent
+
+
+% --- Executes on button press in checkboxPastel.
+function checkboxPastel_Callback(hObject, eventdata, handles)
+% hObject    handle to checkboxPastel (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hint: get(hObject,'Value') returns toggle state of checkboxPastel
+
+
+% --- Executes on button press in checkboxGlow.
+function checkboxGlow_Callback(hObject, eventdata, handles)
+% hObject    handle to checkboxGlow (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hint: get(hObject,'Value') returns toggle state of checkboxGlow
+
+
+% --- Executes on button press in checkboxMetal.
+function checkboxMetal_Callback(hObject, eventdata, handles)
+% hObject    handle to checkboxMetal (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hint: get(hObject,'Value') returns toggle state of checkboxMetal
+
+
+% --- Executes on button press in checkboxNeon.
+function checkboxNeon_Callback(hObject, eventdata, handles)
+% hObject    handle to checkboxNeon (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hint: get(hObject,'Value') returns toggle state of checkboxNeon
