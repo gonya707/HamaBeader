@@ -44,14 +44,11 @@ function [] = enableAll(handles)
     set(handles.RadioMedium, 'Enable', 'on');
     set(handles.DitherCheck, 'Enable', 'on');
     set(handles.ColorAdjCheck, 'Enable', 'on');
-    set(handles.SizeSlider, 'Enable', 'on');
     set(handles.TextWidth, 'Enable', 'on');
     set(handles.TextHeight, 'Enable', 'on');
     set(handles.TextColors, 'Enable', 'on');
     set(handles.TextIn, 'Enable', 'on');
     set(handles.TextCm, 'Enable', 'on');
-    set(handles.ApplyButton, 'Enable', 'on');
-    set(handles.ColorSlider, 'Enable', 'on');
 end
 
 % Disable all the GUI controls. This should be called if there is no image displayed.
@@ -71,9 +68,6 @@ function [] = disableAll(handles)
     set(handles.TextColors, 'Enable', 'off');
     set(handles.TextIn, 'Enable', 'off');
     set(handles.TextCm, 'Enable', 'off');
-    set(handles.RestoreButton, 'Enable', 'off');
-    set(handles.ApplyButton, 'Enable', 'off');
-    set(handles.ColorSlider, 'Enable', 'off');
 end
 
 % set the image in display. Called every time a control changes. This function check all the control states and show the desired image.
@@ -99,10 +93,7 @@ function mapS = setImage(handles, img)
         histo = hbHistogram (imgDisp);
         
         [M, N] = size (imgDisp);
-        tresh = M * N *  get(handles.ColorSlider, 'Value') * 0.2; %from 0% to 20%
-
-
-        %tresh = M * N * 0.02; %treshold 2 percent, this could be interesting to set with a slider
+        tresh = M * N * 0.02; %treshold 2 percent, this could be interesting to set with a slider
 
         newMap = [];
         [M, N] = size (histo);
@@ -132,12 +123,8 @@ function mapS = setImage(handles, img)
         end
     end
     
-    
     currentCM = newMap';
-    
-    [m n]= size(currentCM);
-    set(handles.TextColors, 'string', ['Colors: ' num2str(m)]);
-    
+    set(handles.TextColors, 'string', ['Colors: ' num2str(length(currentCM))]);
     
     axes(handles.ImageBox);
     imshow(imgS, mapS);
@@ -200,9 +187,10 @@ end
 function UIPanel_SelectionChangeFcn(hObject, eventdata, handles)
 end
 
-% --- Executes on slider movement.
-function SizeSlider_Callback(hObject, eventdata, handles)
+%saves the current displayed image
+function ButtonSave_Callback(hObject, eventdata, handles)
 
+   imwrite(getimage(handles.ImageBox), colormap, 'saved image.png','png');
 end
 
 % ui pannel for bead size. detect the event and run a setImage
@@ -221,48 +209,4 @@ end
 function DitherCheck_Callback(hObject, eventdata, handles)
     img = imread(get(handles.EditTextURL, 'string'));
     setImage(handles, img);
-end
-
-% --- Executes on slider movement.
-function ColorSlider_Callback(hObject, eventdata, handles)
-% hObject    handle to ColorSlider (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-
-% Hints: get(hObject,'Value') returns position of slider
-%        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
-end
-
-% --- Executes during object creation, after setting all properties.
-function ColorSlider_CreateFcn(hObject, eventdata, handles)
-    if isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
-        set(hObject,'BackgroundColor',[.9 .9 .9]);
-    end
-end
-% --- Executes during object creation, after setting all properties.
-function SizeSlider_CreateFcn(hObject, eventdata, handles)
-    if isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
-        set(hObject,'BackgroundColor',[.9 .9 .9]);
-    end
-end
-
-% --- Executes on button press in ApplyButton.
-function ApplyButton_Callback(hObject, eventdata, handles)
-        set(handles.ColorAdjCheck, 'Value', get (handles.ColorAdjCheck, 'Max'));
-        set(handles.RestoreButton, 'Enable', 'on' );
-        img = imread(get(handles.EditTextURL, 'string'));
-        setImage(handles, img);
-end
-
-% --- Executes on button press in RestoreButton.
-function RestoreButton_Callback(hObject, eventdata, handles)
-        set(handles.ColorAdjCheck, 'Value', get (handles.ColorAdjCheck, 'Min'));
-        set(handles.RestoreButton, 'Enable', 'off' );
-        img = imread(get(handles.EditTextURL, 'string'));
-        setImage(handles, img);
-end
-%saves the current displayed image
-
-function ButtonSave_Callback(hObject, eventdata, handles)
-   imwrite(getimage(handles.ImageBox), colormap, 'saved image.png','png');
 end
