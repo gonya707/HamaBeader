@@ -123,7 +123,7 @@ function mapS = setImage(handles, img)
     
     %reduce colormap
 %     imgDisp = imgS;
-%     histo = hbHistogram (imgDisp);
+     histo = hbHistogram (values, imgS);
 %     
 %     newMap = [];
 %     [M, N] = size (histo);
@@ -135,7 +135,7 @@ function mapS = setImage(handles, img)
 %     end
 %     
 %     currentCM = newMap';
-%     set(handles.TextColors, 'string', ['Colors: ' num2str(length(currentCM))]);
+ set(handles.TextColors, 'string', ['Colors: ' num2str(sum(histo ~= 0))]);
 %     
     axes(handles.ImageBox);
     imshow(imgS, mapS);
