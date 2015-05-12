@@ -89,10 +89,6 @@ function mapS = setImage(handles, img)
     names = textscan(fileID,formatSpec);
 
     % names{1}{12}
-
-    
-    
-
     % check dither
     if ( get(handles.DitherCheck, 'Value') == get(handles.DitherCheck, 'Max'))
         shouldIUseDither = 'dither';
@@ -101,9 +97,6 @@ function mapS = setImage(handles, img)
     end
     
     map = selectCatalog(values, handles);
-    
-
-    
 
     [imgS, mapS] = rgb2ind(img, map, shouldIUseDither);
 
@@ -232,30 +225,36 @@ end
 
 function checkboxMatt_Callback(hObject, eventdata, handles)
 % Hint: get(hObject,'Value') returns toggle state of checkboxMatt
-
-map = selectCatalog(values, handles);
+    img = imread(get(handles.EditTextURL, 'string'));
+    setImage(handles, img);
 end
 
 function checkboxTranslucent_Callback(hObject, eventdata, handles)
-
+    img = imread(get(handles.EditTextURL, 'string'));
+    setImage(handles, img);
 end
 
 function checkboxFluorescent_Callback(hObject, eventdata, handles)
-
+    img = imread(get(handles.EditTextURL, 'string'));
+    setImage(handles, img);
 end
 
 function checkboxPastel_Callback(hObject, eventdata, handles)
-
+    img = imread(get(handles.EditTextURL, 'string'));
+    setImage(handles, img);
 end
 
 function checkboxGlow_Callback(hObject, eventdata, handles)
-
+    img = imread(get(handles.EditTextURL, 'string'));
+    setImage(handles, img);
 end
 
 function checkboxMetal_Callback(hObject, eventdata, handles)
-
+    img = imread(get(handles.EditTextURL, 'string'));
+    setImage(handles, img);
 end
 
 function checkboxNeon_Callback(hObject, eventdata, handles)
-
+    img = imread(get(handles.EditTextURL, 'string'));
+    setImage(handles, img);
 end

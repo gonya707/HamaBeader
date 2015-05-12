@@ -74,8 +74,6 @@ end
 % the paramenter img should be the original image
 function mapS = setImage(handles, img)
 
-    %TODO read ini instead
-    %map = xlsread('completeMap.xlsx');
     %use function textscan to simplify into 1 file
 
     fileID = fopen('catalogValues.ini', 'r');
@@ -89,10 +87,6 @@ function mapS = setImage(handles, img)
     names = textscan(fileID,formatSpec);
 
     % names{1}{12}
-
-    
-    
-
     % check dither
     if ( get(handles.DitherCheck, 'Value') == get(handles.DitherCheck, 'Max'))
         shouldIUseDither = 'dither';
@@ -101,51 +95,48 @@ function mapS = setImage(handles, img)
     end
     
     map = selectCatalog(values, handles);
-    
-
-    
 
     [imgS, mapS] = rgb2ind(img, map, shouldIUseDither);
 
     % check adjustment
-    if(get(handles.ColorAdjCheck, 'Value') == get(handles.ColorAdjCheck, 'Max'))
-        imgDisp = imgS;
-        histo = hbHistogram (imgDisp);
-        
-        [M, N] = size (imgDisp);
-        tresh = M * N * 0.02; %treshold 2 percent, this could be interesting to set with a slider
-
-        newMap = [];
-        [M, N] = size (histo);
-
-        for i = 1 : M
-            nCol = cell2mat(histo(i, 2));
-            if (nCol > tresh) 
-                newMap = [newMap map(i,:)'];
-            end
-        end
-
-        newMap = newMap';
-        [imgS, mapS] = rgb2ind(img, newMap, shouldIUseDither);
-
-    end
+%     if(get(handles.ColorAdjCheck, 'Value') == get(handles.ColorAdjCheck, 'Max'))
+%         imgDisp = imgS;
+%         histo = hbHistogram (imgDisp);
+%         
+%         [M, N] = size (imgDisp);
+%         tresh = M * N * 0.02; %treshold 2 percent, this could be interesting to set with a slider
+% 
+%         newMap = [];
+%         [M, N] = size (histo);
+% 
+%         for i = 1 : M
+%             nCol = cell2mat(histo(i, 2));
+%             if (nCol > tresh) 
+%                 newMap = [newMap map(i,:)'];
+%             end
+%         end
+% 
+%         newMap = newMap';
+%         [imgS, mapS] = rgb2ind(img, newMap, shouldIUseDither);
+% 
+%     end
     
     %reduce colormap
-    imgDisp = imgS;
-    histo = hbHistogram (imgDisp);
-    
-    newMap = [];
-    [M, N] = size (histo);
-    for i = 1 : M
-        nCol = cell2mat(histo(i, 2));
-        if (nCol > 0) 
-            newMap = [newMap map(i,:)'];
-        end
-    end
-    
-    currentCM = newMap';
-    set(handles.TextColors, 'string', ['Colors: ' num2str(length(currentCM))]);
-    
+%     imgDisp = imgS;
+%     histo = hbHistogram (imgDisp);
+%     
+%     newMap = [];
+%     [M, N] = size (histo);
+%     for i = 1 : M
+%         nCol = cell2mat(histo(i, 2));
+%         if (nCol > 0) 
+%             newMap = [newMap map(i,:)'];
+%         end
+%     end
+%     
+%     currentCM = newMap';
+%     set(handles.TextColors, 'string', ['Colors: ' num2str(length(currentCM))]);
+%     
     axes(handles.ImageBox);
     imshow(imgS, mapS);
 end
