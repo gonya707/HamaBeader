@@ -232,36 +232,30 @@ end
 
 function checkboxMatt_Callback(hObject, eventdata, handles)
 % Hint: get(hObject,'Value') returns toggle state of checkboxMatt
-    img = imread(get(handles.EditTextURL, 'string'));
-    setImage(handles, img);
+
+map = selectCatalog(values, handles);
 end
 
 function checkboxTranslucent_Callback(hObject, eventdata, handles)
-    img = imread(get(handles.EditTextURL, 'string'));
-    setImage(handles, img);
+
 end
 
 function checkboxFluorescent_Callback(hObject, eventdata, handles)
-    img = imread(get(handles.EditTextURL, 'string'));
-    setImage(handles, img);
+
 end
 
 function checkboxPastel_Callback(hObject, eventdata, handles)
-    img = imread(get(handles.EditTextURL, 'string'));
-    setImage(handles, img);
+
 end
 
 function checkboxGlow_Callback(hObject, eventdata, handles)
-    img = imread(get(handles.EditTextURL, 'string'));
-    setImage(handles, img);
+
 end
 
 function checkboxMetal_Callback(hObject, eventdata, handles)
-    img = imread(get(handles.EditTextURL, 'string'));
-    setImage(handles, img);
+
 end
 
 function checkboxNeon_Callback(hObject, eventdata, handles)
-    img = imread(get(handles.EditTextURL, 'string'));
-    setImage(handles, img);
+
 end

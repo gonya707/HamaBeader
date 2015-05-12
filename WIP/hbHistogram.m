@@ -2,7 +2,10 @@
 % given indexed image. 
 
 function r = hbHistogram (img)
-    [dummy1 names dummy2] = xlsread('colors.xlsx');
+    fileID = fopen('catalogNames.ini', 'r');
+    formatSpec = '%s';
+    names = textscan(fileID,formatSpec);
+    
     l = length(names);
     r = zeros(l, 1);
     
