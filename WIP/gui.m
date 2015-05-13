@@ -72,7 +72,7 @@ end
 
 % set the image in display. Called every time a control changes. This function check all the control states and show the desired image.
 % the paramenter img should be the original image
-function mapS = setImage(handles, img)
+function mapS = setImage(handles, img, alpha)
 
     %use function textscan to simplify into 1 file
 
@@ -138,7 +138,8 @@ function mapS = setImage(handles, img)
  set(handles.TextColors, 'string', ['Colors: ' num2str(sum(histo ~= 0))]);
 %     
     axes(handles.ImageBox);
-    imshow(imgS, mapS);
+    h = imshow(imgS, mapS);
+    set(h, 'AlphaData', alpha);
 end
 
 % changes the text boxes for sizes.
@@ -173,12 +174,13 @@ function ButtonExplore_Callback(hObject, eventdata, handles)
     set(handles.EditTextURL, 'string' , [handles.pathname handles.filename]);
 
     if (~isempty(get(handles.EditTextURL, 'string')))
-        img = imread([handles.pathname handles.filename]);
+        [img m alpha] = imread([handles.pathname handles.filename]);
+        clear m;
         
         [okImage errorMsg] = hbIsImage(img);
         
         if (1 == okImage)
-            map = setImage(handles, img);
+            setImage(handles, img, alpha);
             enableAll(handles);
             sizesLabel(handles, img);
         else
@@ -211,48 +213,48 @@ end
 
 % --- Executes on button press in ColorAdjCheck.
 function ColorAdjCheck_Callback(hObject, eventdata, handles)
-    img = imread(get(handles.EditTextURL, 'string'));
-    setImage(handles, img);
+    [img m alpha] = imread(get(handles.EditTextURL, 'string'));
+    setImage(handles, img, alpha);
 end
 
 % --- Executes on button press in DitherCheck.
 function DitherCheck_Callback(hObject, eventdata, handles)
-    img = imread(get(handles.EditTextURL, 'string'));
-    setImage(handles, img);
+    [img m alpha] = imread(get(handles.EditTextURL, 'string'));
+    setImage(handles, img, alpha);
 end
 
 function checkboxMatt_Callback(hObject, eventdata, handles)
 % Hint: get(hObject,'Value') returns toggle state of checkboxMatt
-    img = imread(get(handles.EditTextURL, 'string'));
-    setImage(handles, img);
+    [img m alpha] = imread(get(handles.EditTextURL, 'string'));
+    setImage(handles, img, alpha);
 end
 
 function checkboxTranslucent_Callback(hObject, eventdata, handles)
-    img = imread(get(handles.EditTextURL, 'string'));
-    setImage(handles, img);
+    [img m alpha] = imread(get(handles.EditTextURL, 'string'));
+    setImage(handles, img, alpha);
 end
 
 function checkboxFluorescent_Callback(hObject, eventdata, handles)
-    img = imread(get(handles.EditTextURL, 'string'));
-    setImage(handles, img);
+    [img m alpha] = imread(get(handles.EditTextURL, 'string'));
+    setImage(handles, img, alpha);
 end
 
 function checkboxPastel_Callback(hObject, eventdata, handles)
-    img = imread(get(handles.EditTextURL, 'string'));
-    setImage(handles, img);
+    [img m alpha] = imread(get(handles.EditTextURL, 'string'));
+    setImage(handles, img, alpha);
 end
 
 function checkboxGlow_Callback(hObject, eventdata, handles)
-    img = imread(get(handles.EditTextURL, 'string'));
-    setImage(handles, img);
+    [img m alpha] = imread(get(handles.EditTextURL, 'string'));
+    setImage(handles, img, alpha);
 end
 
 function checkboxMetal_Callback(hObject, eventdata, handles)
-    img = imread(get(handles.EditTextURL, 'string'));
-    setImage(handles, img);
+    [img m alpha] = imread(get(handles.EditTextURL, 'string'));
+    setImage(handles, img, alpha);
 end
 
 function checkboxNeon_Callback(hObject, eventdata, handles)
-    img = imread(get(handles.EditTextURL, 'string'));
-    setImage(handles, img);
+    [img m alpha] = imread(get(handles.EditTextURL, 'string'));
+    setImage(handles, img, alpha);
 end
