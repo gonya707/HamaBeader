@@ -201,8 +201,8 @@ end
 
 %saves the current displayed image
 function ButtonSave_Callback(hObject, eventdata, handles)
-
-   imwrite(getimage(handles.ImageBox), colormap, 'saved image.png','png');
+    [img m alpha] = imread(get(handles.EditTextURL, 'string'));
+   imwrite(ind2rgb(getimage(handles.ImageBox), colormap), 'saved image.png','png', 'Alpha', alpha);
 end
 
 % ui pannel for bead size. detect the event and run a setImage
